@@ -80,6 +80,33 @@ class GuestListTest {
                 "Max" )),guestList.getGuests());
     }
 
+    @Test
+    void shouldWriteAddedGuestToFileSystem() {
+        // Given
+        GuestList guestList=new GuestList();
+        List<String> guests=new ArrayList<>(Arrays.asList(
+                "Theodor",
+                "Anette" ));
+        guestList.setGuests(guests);
 
+        //Then
+        List<String> actual=new ArrayList<>();
+        guestList.addGuest("Max");
+        try {
+            BufferedReader br = new BufferedReader( new FileReader("guests.txt"));
+            String line;
+            while ( (line=br.readLine()) != null){
+                actual.add(line);
+            }
+            br.close();
+        } catch  (IOException e) {
+            e.printStackTrace();
+        }
+        Assertions.assertEquals(new ArrayList<>(Arrays.asList(
+                "Theodor",
+                "Anette" ,
+                "Max")),actual);
+
+    }
 
 }

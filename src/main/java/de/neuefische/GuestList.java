@@ -49,7 +49,16 @@ public class GuestList {
                 '}';
     }
 
-
+    public void addGuest(String guest){
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter("guests.txt",true));
+            bw.write(guest);
+            bw.write("\n");
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 }
